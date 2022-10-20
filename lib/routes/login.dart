@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:my_app/data/shared.dart';
+import 'package:my_app/logic/request.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -10,40 +14,36 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool notValidInput = false;
   final ipController = TextEditingController(text: '192.168.1.207');
-
-  void _validateAddress() async {
-    String ip = ipController.text;
-
-    if (ip.isEmpty || ip.contains(RegExp(r'[A-Za-z]'))) {
-    } else {
-      /*
-      connection = Connection(ip, port, id);
-      SocketClient socket = SocketClient(connection!);
-      SharedData.soc = socket;
-      await socket.connect() ? _watchState(isConnected: true) : _watchState();
-      */
-    }
-  }
-
-  void _watchState({
-    bool isConnected = false,
-  }) {
-    notValidInput = false;
-    if (isConnected) {
-      Navigator.pushNamed(context, '/home');
-    } else if (notValidInput == false) {
-      setState(() {
-        notValidInput = true;
-      });
-    }
-  }
-
+  
   @override
   void initState() {
     setState(() {
       notValidInput = false;
     });
     super.initState();
+  }
+
+  void switchRoute() {
+    Navigator.pushNamed(context, '/home');
+  }
+
+  void _validateAddress() async {
+    String ip = ipController.text;
+
+    if (ip.isEmpty || ip.contains(RegExp(r'[A-Za-z]'))) {
+    } else {
+      try {
+        SharedData.ip = ipController.text;
+        await refresh(1, 0).timeout(const Duration(seconds: 2));
+        notValidInput = false; //Re-assurance
+        switchRoute();
+      } on TimeoutException {
+        SharedData.ip = "";
+        setState(() {
+          notValidInput = true;
+        });
+      }
+    }
   }
 
   @override
