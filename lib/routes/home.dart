@@ -10,7 +10,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -42,7 +41,16 @@ class HomePageState extends State<HomePage> {
                     ActionCard('LED #1',
                         isClickable: true,
                         id: 1,
-                        icon: SharedData.status.led1 == 1 ? Icons.power : Icons.power_off),
+                        icon: SharedData.status.led1 == 1
+                            ? Icons.power
+                            : Icons.power_off),
+                    ActionCard('LED #2',
+                        isClickable: true,
+                        id: 2,
+                        icon: SharedData.status.led2 == 1
+                            ? Icons.power
+                            : Icons.power_off),
+                    const Padding(padding: EdgeInsets.all(8.0)),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       alignment: Alignment.center,

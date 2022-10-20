@@ -4,6 +4,20 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:my_app/data/shared.dart';
 
+Future<Status> fetchInitialStatus() async {
+  // print('http://${SharedData.ip}/');
+  final response = await http.get(Uri.parse('http://${SharedData.ip}/'));
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return Status.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load Status');
+  }
+}
+
 Future<Status> fetchStatus(int id, String state) async {
   // print('http://${SharedData.ip}/LED/$id/$state');
   final response =
@@ -17,6 +31,10 @@ Future<Status> fetchStatus(int id, String state) async {
     // then throw an exception.
     throw Exception('Failed to load Status');
   }
+}
+
+Future<void> initialRefresh() async {
+  SharedData.status = await fetchInitialStatus();
 }
 
 Future<void> refresh(int id, int state) async {
