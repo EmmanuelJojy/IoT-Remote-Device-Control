@@ -31,6 +31,12 @@ class _ActionCardState extends State<ActionCard> {
                   .findAncestorStateOfType<HomePageState>()!
                   .setState(() {}));
         }
+        if (widget.isClickable == true && widget.id == 2) {
+          refresh(widget.id!, (SharedData.status.led2 + 1) % 2).whenComplete(
+              () => context
+                  .findAncestorStateOfType<HomePageState>()!
+                  .setState(() {}));
+        }
       },
       child: Card(
         color: widget.icon == null ? Colors.grey[350] : null,

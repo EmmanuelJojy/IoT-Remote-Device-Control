@@ -34,7 +34,7 @@ class LoginPageState extends State<LoginPage> {
     } else {
       try {
         SharedData.ip = ipController.text;
-        await refresh(1, 0).timeout(const Duration(seconds: 2));
+        await initialRefresh().timeout(const Duration(seconds: 2));
         notValidInput = false; //Re-assurance
         switchRoute();
       } on TimeoutException {
