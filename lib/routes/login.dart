@@ -42,6 +42,8 @@ class _LoginPageState extends State<LoginPage> {
         setState(() {
           notValidInput = true;
         });
+      } on Exception {
+        // print('exception: $e');
       }
     }
   }

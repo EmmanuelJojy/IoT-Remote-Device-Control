@@ -10,7 +10,7 @@ class Status {
   });
   factory Status.fromJson(Map<String, dynamic> json) {
     return Status(
-      led1: json['LED1'],
+      led1: int.parse(json['LED1']),
     );
   }
 }
