@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/shared.dart';
 import 'package:my_app/logic/request.dart';
+import 'package:my_app/routes/home.dart';
 
 class ActionCard extends StatefulWidget {
   final String text;
@@ -25,7 +26,10 @@ class _ActionCardState extends State<ActionCard> {
     return GestureDetector(
       onTap: () {
         if (widget.isClickable == true && widget.id == 1) {
-          refresh(widget.id!, (SharedData.status.led1 + 1) % 2);
+          refresh(widget.id!, (SharedData.status.led1 + 1) % 2).whenComplete(
+              () => context
+                  .findAncestorStateOfType<HomePageState>()!
+                  .setState(() {}));
         }
       },
       child: Card(
