@@ -8,8 +8,8 @@
 #define LED1 5 // D1
 #define LED2 4 // D2
 
-char* ssid = "Jojy's Sharon";
-char* pass = "2244668800@";
+char* ssid = "AndroidAP7AC7";
+char* pass = "abcdefgh";
 char* json = "abcdefghijklmnopqrstuvwxyz";
 
 int sled1 = 0, sled2 = 0;
