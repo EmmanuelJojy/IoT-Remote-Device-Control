@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/shared.dart';
+import 'package:my_app/logic/request.dart';
 
 class ActionCard extends StatefulWidget {
   final String text;
+  final int? id;
+  final bool? isClickable;
   final IconData? icon;
   final String? subTitle;
-  final String buttonText;
-  const ActionCard(this.text, this.buttonText, {this.icon, this.subTitle, Key? key})
+  const ActionCard(this.text,
+      {this.isClickable, this.id, this.icon, this.subTitle, Key? key})
       : super(key: key);
 
   @override
@@ -21,45 +24,9 @@ class _ActionCardState extends State<ActionCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        //TODO
-        showDialog(
-          context: context,
-          builder: (context) {
-            operationStatus = true;
-            return StatefulBuilder(
-              builder: (context, setState) {
-                return AlertDialog(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16.0))),
-                  title: Text(widget.text),
-                  content: SingleChildScrollView(
-                    child: Column(children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          labelText: widget.buttonText == 'Execute'
-                              ? 'Command To Execute'
-                              : 'File Name',
-                          errorText:
-                              operationStatus ? null : 'Operation Unsuccessful',
-                        ),
-                        controller: controller,
-                        keyboardType: TextInputType.text,
-                      ),
-                    ]),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text(widget.buttonText),
-                      onPressed: () {
-                        //actionHandler(setState);
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          },
-        );
+        if (widget.isClickable == true && widget.id == 1) {
+          refresh(widget.id!, (SharedData.status.led1 + 1) % 2);
+        }
       },
       child: Card(
         color: widget.icon == null ? Colors.grey[350] : null,
@@ -79,8 +46,9 @@ class _ActionCardState extends State<ActionCard> {
               textAlign: widget.icon == null ? TextAlign.center : null,
             ),
             subtitle: widget.subTitle != null
-                ? SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
+                ? Container(
+                    margin: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Text(
                       widget.subTitle!,
                       textAlign: TextAlign.center,

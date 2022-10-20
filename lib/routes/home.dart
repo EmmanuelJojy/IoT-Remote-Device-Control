@@ -27,9 +27,8 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(5),
               height: availHeight * 0.2 <= 125 ? availHeight * 0.2 : 125,
               child: ActionCard(
-                'NodeMCU ESP8266',
-                '',
-                subTitle: 'IP: ${SharedData.ip}',
+                'Remote Device Controller',
+                subTitle: 'NodeMCU ESP8266 Server at ${SharedData.ip}',
               ),
             ),
             Container(
@@ -39,19 +38,17 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const ActionCard('Create File', 'Create', icon: Icons.add),
-                    const ActionCard('Edit File', 'Edit', icon: Icons.edit),
-                    const ActionCard('View File', 'View',
-                        icon: Icons.remove_red_eye),
-                    const ActionCard('Delete File', 'Delete',
-                        icon: Icons.delete_forever),
-                    const ActionCard('Raw Command', 'Execute',
-                        icon: Icons.admin_panel_settings),
+                    ActionCard('LED #1',
+                        isClickable: true,
+                        id: 1,
+                        icon: SharedData.status.led1 == 1
+                            ? Icons.power
+                            : Icons.power_off),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 10),
                       alignment: Alignment.center,
-                      child: Text(
-                        'ESP8266 Server at ${SharedData.ip}',
+                      child: const Text(
+                        'Engineered with ❤️ by Abhijith, Emmanuel, Jiss and Joel',
                       ),
                     ),
                   ],
