@@ -37,15 +37,14 @@ class LoginPageState extends State<LoginPage> {
         await initialRefresh().timeout(const Duration(seconds: 2));
         notValidInput = false; //Re-assurance
         switchRoute();
-      } on TimeoutException {
+      } on Exception {
         SharedData.ip = "";
         setState(() {
           notValidInput = true;
         });
-      } on Exception {
         // print('exception: $e');
       }
-    }
+    } 
   }
 
   @override
